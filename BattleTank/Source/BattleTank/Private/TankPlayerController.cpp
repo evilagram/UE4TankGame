@@ -2,6 +2,7 @@
 
 #include "TankPlayerController.h"
 #include "BattleTank.h"
+#include "engine.h"
 
 //tick
 void ATankPlayerController::Tick(float DeltaTime) {
@@ -41,8 +42,28 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-	// deproject the screen position of the crosshair to a world direction
-	// line trace along that direction and see what we hit (up to a max range)
 
+	FVector CameraWorldLocation;//discarded
+	FVector LookDirection;
+	if (DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, LookDirection)) {
+		//UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *CameraDirection.ToString());
+
+		if (GetLookVectorHitLocation(LookDirection, HitLocation)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const {
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+	if (GetWorld()->LineTraceSingleByChannel(HitResult,StartLocation,EndLocation,ECollisionChannel::ECC_Visibility)) {
+		// set hit result
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	HitLocation = FVector(0.0);
 	return false;
 }
