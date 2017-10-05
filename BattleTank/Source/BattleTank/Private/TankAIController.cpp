@@ -2,7 +2,7 @@
 
 #include "TankAIController.h"
 #include "BattleTank.h"
-#include "Engine/World.h"
+#include "engine.h"
 
 void ATankAIController::BeginPlay() {
 	Super::BeginPlay();
@@ -33,5 +33,14 @@ ATank* ATankAIController::GetPlayerTank() const {
 	}
 	else {
 		return nullptr;
+	}
+}
+
+void ATankAIController::Tick(float DeltaTime){
+	Super::Tick( DeltaTime );
+	if (GetPlayerTank()) {
+		if (GetControlledTank()) {
+			GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+		}
 	}
 }
