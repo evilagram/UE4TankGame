@@ -2,6 +2,7 @@
 #pragma once
 
 #include "TankAimingComponent.h"
+#include "TankBarrel.h"
 #include "Engine.h"
 
 // Sets default values for this component's properties
@@ -49,7 +50,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 
 }
 
-void UTankAimingComponent::SetBarrelComponent(UStaticMeshComponent* BarrelToSet) {
+void UTankAimingComponent::SetBarrelComponent(UTankBarrel* BarrelToSet) {
 	Barrel = BarrelToSet;
 }
 
@@ -58,8 +59,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
-	UE_LOG(LogTemp,Warning,TEXT("Aim as a Rotator: %s"), *DeltaRotator.ToString())
+	UE_LOG(LogTemp, Warning, TEXT("Aim as a Rotator: %s"), *AimAsRotator.ToString())
 
-	//move barrel the right amount this frame
-	//given a max elevation speed, and the frame time
+		Barrel->Elevate(5);
 }
