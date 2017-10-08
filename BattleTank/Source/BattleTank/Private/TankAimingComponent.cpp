@@ -45,16 +45,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 	if (UGameplayStatics::SuggestProjectileVelocity(this,OutLaunchVelocity,StartLocation,HitLocation,LaunchSpeed,false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace)) {
 		//Calculate Launch Velocity
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		//auto Time = GetWorld()->GetTimeSeconds();
-		//UE_LOG(LogTemp, Warning, TEXT("%f: Barrel->Elevate(5); called"), Time)
+		
 		MoveBarrelTowards(AimDirection);
 	}
-	else {
-		//auto Time = GetWorld()->GetTimeSeconds();
-		//UE_LOG(LogTemp, Warning, TEXT("%f: No Solution Found"), Time)
-	}
-
-
 }
 
 void UTankAimingComponent::SetBarrelComponent(UTankBarrel* BarrelToSet) {
