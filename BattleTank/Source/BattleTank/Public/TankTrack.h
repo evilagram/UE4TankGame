@@ -17,5 +17,8 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 	UFUNCTION(BlueprintCallable)
 	void SetThrottle(float Throttle);
 	
-	
+	UPROPERTY(EditDefaultsOnly)
+	float MaxDrivingForce = 40000000;
+
+
 };
