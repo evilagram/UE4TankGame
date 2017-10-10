@@ -29,14 +29,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
-	//UFUNCTION(BlueprintCallable)
-	//void IntendMoveForward(float Throw);
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
-
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties

@@ -6,7 +6,7 @@
 #include "GameFramework/NavMovementComponent.h"
 #include "TankMovementComponent.generated.h"
 
-class ATank;
+class UTankTrack;
 
 /**
  * Governs Fly-By-Wire Controls for the Tank Class
@@ -20,8 +20,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendMoveForward(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendRotateRight(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
+
 	
 private:
-	ATank* TankRef = nullptr;
-
+	UTankTrack* LeftTrack = nullptr;
+	UTankTrack* RightTrack = nullptr;
 };
