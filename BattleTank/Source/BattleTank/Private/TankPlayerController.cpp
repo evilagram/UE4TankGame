@@ -2,6 +2,7 @@
 
 #include "TankPlayerController.h"
 #include "BattleTank.h"
+#include "TankAimingComponent.h"
 #include "engine.h"
 
 //tick
@@ -12,12 +13,12 @@ void ATankPlayerController::Tick(float DeltaTime) {
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-	auto ControlledTank = GetControlledTank();
-	if (!ControlledTank) {
-		UE_LOG(LogTemp, Warning, TEXT("No tank at player controller"));
+	auto AimingComp = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComp) {
+		FoundAimingComponent(AimingComp);
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("Player Controller possessing %s"), *(ControlledTank->GetName()));
+		UE_LOG(LogTemp,Warning,TEXT("Can't find aim component"))
 	}
 }
 

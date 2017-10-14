@@ -44,7 +44,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringStatus FireStatus = EFiringStatus::Reloading;
+	EFiringStatus FireStatus = EFiringStatus::Locked;
 
 private:
 	UTankBarrel* Barrel = nullptr;
