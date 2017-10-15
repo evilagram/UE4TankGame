@@ -13,26 +13,22 @@ void ATankPlayerController::Tick(float DeltaTime) {
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-	auto AimingComp = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (AimingComp) {
-		FoundAimingComponent(AimingComp);
-	}
-	else {
-		UE_LOG(LogTemp,Warning,TEXT("Can't find aim component"))
-	}
+	AimingComp = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (!AimingComp) { return; }
+	FoundAimingComponent(AimingComp);
 }
 
 ATank* ATankPlayerController::GetControlledTank() const {
 	return Cast<ATank>(GetPawn());
 }
 
-
 void ATankPlayerController::AimTowardsCrosshair() {
-	if (!GetControlledTank()) { return; }
-
+	if (!AimingComp) { return; }
 	FVector HitLocation;	//get world location through crosshair
-	if (GetSightRayHitLocation(HitLocation)) { //has side effect
-		GetControlledTank()->AimAt(HitLocation);
+	bool bGetHitRay = GetSightRayHitLocation(HitLocation);
+	UE_LOG(LogTemp,Warning,TEXT("Got Hit: %i"), bGetHitRay)
+	if (bGetHitRay) { //has side effect
+		AimingComp->AimAt(HitLocation);
 	}
 }
 
@@ -46,10 +42,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
 	FVector LookDirection;
 	if (DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, LookDirection)) {
 		//UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *CameraDirection.ToString());
-
-		if (GetLookVectorHitLocation(LookDirection, HitLocation)) {
-			return true;
-		}
+		return GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
 	return false;
 }
