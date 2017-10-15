@@ -18,8 +18,8 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 protected:
-	UPROPERTY(EditAnywhere, Category = "Setup")
-		float AcceptanceRadius = 3000.0;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float AcceptanceRadius = 8000.0;
 
 private:
 	virtual void BeginPlay() override;

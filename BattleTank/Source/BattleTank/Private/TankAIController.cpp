@@ -17,7 +17,7 @@ void ATankAIController::Tick(float DeltaTime){
 	MoveToActor(PlayerTank, AcceptanceRadius);
 	//aim towards the player
 	AimComp->AimAt(PlayerTank->GetActorLocation());
-	if (AimComp->GetFiringStatus() == EFiringStatus::Aiming || AimComp->GetFiringStatus() == EFiringStatus::Locked){
+	if (AimComp->GetFiringStatus() == EFiringStatus::Locked){
 		AimComp->Fire();
 	}
 }
