@@ -38,4 +38,5 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* LaunchBlast = nullptr;
+
 };

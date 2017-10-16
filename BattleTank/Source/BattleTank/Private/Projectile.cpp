@@ -1,8 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+#pragma once
+
 
 #include "Projectile.h"
 #include "BattleTank.h"
-#include "Particles/ParticleSystemComponent.h"
+#include "Engine.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -13,10 +15,9 @@ AProjectile::AProjectile()
 	SetRootComponent(CollisionMesh);
 	CollisionMesh->SetNotifyRigidBodyCollision(true);
 	CollisionMesh->SetVisibility(false);
-	
-	//LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
-	//LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
+	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
+	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
 	ProjectileMovement->bAutoActivate = false;
