@@ -11,7 +11,8 @@ UENUM()
 enum class EFiringStatus : uint8 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	Empty
 };
 
 
@@ -35,13 +36,14 @@ public:
 
 	void MoveBarrelTowards(FVector AimDirection);
 
-
-
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UTankBarrel* Barrel, UTankTurret* Turret);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
+
+	UFUNCTION(BlueprintPure, Category = "Firing")
+	int GetRoundsLeft();
 
 	EFiringStatus GetFiringStatus() const;
 
@@ -70,6 +72,8 @@ private:
 	double LastFireTime = 0;
 
 	float ReloadTimeSeconds = 3;
+
+	int Ammo = 3;
 
 	FVector AimDirection;
 };

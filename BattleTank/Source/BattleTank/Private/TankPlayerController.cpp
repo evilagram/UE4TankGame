@@ -26,7 +26,7 @@ void ATankPlayerController::AimTowardsCrosshair() {
 	if (!AimingComp) { return; }
 	FVector HitLocation;	//get world location through crosshair
 	bool bGetHitRay = GetSightRayHitLocation(HitLocation);
-	UE_LOG(LogTemp,Warning,TEXT("Got Hit: %i"), bGetHitRay)
+	//UE_LOG(LogTemp,Warning,TEXT("Got Hit: %i"), bGetHitRay)
 	if (bGetHitRay) { //has side effect
 		AimingComp->AimAt(HitLocation);
 	}
