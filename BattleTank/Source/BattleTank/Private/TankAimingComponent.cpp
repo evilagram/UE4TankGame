@@ -50,7 +50,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	}
 }
 
-int UTankAimingComponent::GetRoundsLeft() {
+int32 UTankAimingComponent::GetRoundsLeft() {
 	return Ammo;
 }
 
