@@ -7,7 +7,7 @@
 
 void ATankAIController::BeginPlay() {
 	Super::BeginPlay();
-	AimComp = Cast<ATank>(GetPawn())->FindComponentByClass<UTankAimingComponent>();
+	AimComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATankAIController::Tick(float DeltaTime){
