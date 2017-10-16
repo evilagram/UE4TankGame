@@ -8,18 +8,20 @@
 
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
+class URadialForceComponent;
 
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
 {
 	GENERATED_BODY()
-	
 public:	
 	// Sets default values for this actor's properties
 	AProjectile();
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void OnTimerExpire();
 
 	void LaunchProjectile(float Speed);
 
@@ -34,6 +36,8 @@ protected:
 private:
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 
+	float DestroyDelay = 5.0;
+
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* CollisionMesh = nullptr;
 
@@ -42,4 +46,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* ImpactBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere)
+	URadialForceComponent* BlastForce = nullptr;
 };
